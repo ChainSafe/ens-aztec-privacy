@@ -6,6 +6,7 @@ const utils = ethers.utils;
 const labelhash = (label) => utils.keccak256(utils.toUtf8Bytes(label))
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const ZERO_HASH = "0x0000000000000000000000000000000000000000000000000000000000000000";
+
 async function main() {
   const ENSRegistry = await ethers.getContractFactory("ENSRegistry")
   const FIFSRegistrar = await ethers.getContractFactory("FIFSRegistrar")
@@ -21,26 +22,39 @@ async function main() {
   // await reverseRegistrar.deployed()
   // await setupReverseRegistrar(ens, registrar, reverseRegistrar, accounts);
 
-  const resolver = await PublicResolver.deploy(ens.address, ZERO_ADDRESS,ZERO_ADDRESS,ZERO_ADDRESS);
+  const resolver = await PublicResolver.deploy(ens.address, ZERO_ADDRESS,ZERO_ADDRESS,ZERO_ADDRESS)
   await resolver.deployed()
-  await setupResolver(ens, resolver, accounts)
-
-  const registrar = await  FIFSRegistrar.deploy(ens.address, namehash.hash(tld));
-  await registrar.deployed()
-  await setupRegistrar(ens, registrar);
   
+  await setupResolver(ens, resolver, accounts)
+  console.log('Resolver setup completed')
+
+  const registrar = await  FIFSRegistrar.deploy(ens.address, namehash.hash(tld))
+  await registrar.deployed()
+  console.log('Registrar deployed')
+  await setupRegistrar(ens, registrar)
+  console.log('Registrar setup completed')
 };
 
 async function setupResolver(ens, resolver, accounts) {
-  const resolverNode = namehash.hash("resolver");
-  const resolverLabel = labelhash("resolver");
-  await ens.setSubnodeOwner(ZERO_HASH, resolverLabel, accounts[0]);
-  await ens.setResolver(resolverNode, resolver.address);
-  await resolver['setAddr(bytes32,address)'](resolverNode, resolver.address);
+  const resolverNode = namehash.hash("resolver")
+  const resolverLabel = labelhash("resolver")
+
+  const setSubnodeOwner = await ens.setSubnodeOwner(ZERO_HASH, resolverLabel, accounts[0])
+  await setSubnodeOwner.wait()
+  console.log('setSubnodeOwner')
+
+  const setResolver = await ens.setResolver(resolverNode, resolver.address)
+  await setResolver.wait()
+  console.log('setResolver')
+  
+  const setAddr = await resolver['setAddr(bytes32,address)'](resolverNode, resolver.address)
+  await setAddr.wait()
+  console.log('setupResolver done')
 }
 
 async function setupRegistrar(ens, registrar) {
-  await ens.setSubnodeOwner(ZERO_HASH, labelhash(tld), registrar.address);
+  const setSubnodeOwner = await ens.setSubnodeOwner(ZERO_HASH, labelhash(tld), registrar.address)
+  await setSubnodeOwner.wait()
 }
 
 async function setupReverseRegistrar(ens, registrar, reverseRegistrar, accounts) {
