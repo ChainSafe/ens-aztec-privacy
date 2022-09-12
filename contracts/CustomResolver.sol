@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@ensdomains/ens-contracts/contracts/registry/ENS.sol";
-import "./IRollupProcessor.sol";
+import "./interfaces/IRollupProcessor.sol";
 import "./profiles/AddrResolver.sol";
 
 interface INameWrapper {
