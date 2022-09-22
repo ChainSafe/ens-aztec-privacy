@@ -54,7 +54,6 @@ contract CustomResolver is
     function sendPrivate(bytes32 node)
         external
         payable
-        returns (bool)
     {
         require(
             isSendPrivate(node) == true,
@@ -66,12 +65,9 @@ contract CustomResolver is
             receiver != address(0),
             "No address associated with this ENS name."
         );
-        try rollupProcessor.depositPendingFunds{value: msg.value}(0, msg.value, receiver, bytes32(0)) {
-            emit SendToAztec(msg.sender, receiver, msg.value);
-            return true;
-        } catch {
-            return false;
-        }
+
+        rollupProcessor.depositPendingFunds{value: msg.value}(0, msg.value, receiver, bytes32(0));
+        emit SendToAztec(msg.sender, receiver, msg.value);
     }
 
     /**
