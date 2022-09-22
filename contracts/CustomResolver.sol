@@ -60,9 +60,13 @@ contract CustomResolver is
             isSendPrivate(node) == true,
             "Private sends are not enabled for this name."
         );
-        
         address receiver = addr(node);
-        try rollupProcessor.depositPendingFunds{value: msg.value}(0, msg.value, receiver, 0) {
+
+        require(
+            receiver != address(0),
+            "No address associated with this ENS name."
+        );
+        try rollupProcessor.depositPendingFunds{value: msg.value}(0, msg.value, receiver, bytes32(0)) {
             emit SendToAztec(msg.sender, receiver, msg.value);
             return true;
         } catch {

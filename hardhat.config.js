@@ -6,10 +6,17 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.9",
+  solidity: {
+    version: "0.8.10",
+    settings: {
+      evmVersion: 'london',
+      optimizer: { enabled: true, runs: 2000 },
+    },
+  },
   networks: {
     goerli: {
       url: `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      chainId: 5,
       accounts: [PRIVATE_KEY]
     },
     mainnet_fork: {
