@@ -394,7 +394,7 @@ contract RollupProcessor is IRollupProcessor, Decoder, Initializable, AccessCont
      */
     constructor(uint256 _escapeBlockLowerBound, uint256 _escapeBlockUpperBound) {
         _disableInitializers();
-        rollupState.paused = true;
+        rollupState.paused = false;
 
         escapeBlockLowerBound = _escapeBlockLowerBound;
         escapeBlockUpperBound = _escapeBlockUpperBound;
