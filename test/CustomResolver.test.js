@@ -27,6 +27,7 @@ describe("CustomResolver", async function () {
     const registrar = await FIFSRegistrar.deploy(ens.address, namehash.hash(testDomain))
     await registrar.deployed()
 
+    // setup resolver
     const resolverLabel = labelhash("resolver")
     const resolverNode = namehash.hash("resolver")
     const ownerAddr = await (await ethers.getSigner()).address
@@ -35,6 +36,7 @@ describe("CustomResolver", async function () {
     await ens.setResolver(resolverNode, resolver.address)
     await resolver['setAddr(bytes32,address)'](resolverNode, resolver.address)
 
+    // setup registrar
     await ens.setSubnodeOwner(ZERO_HASH, labelhash(testDomain), registrar.address)
     
     return {ens, rollupProcessor, resolver, registrar}

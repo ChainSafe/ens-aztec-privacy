@@ -9,6 +9,7 @@ const ZERO_HASH = "0x00000000000000000000000000000000000000000000000000000000000
 
 async function main() {
   await deployCustomResolver()
+  /* Uncomment the following only if FIFS is not available in the testnet. Local deployment takes care of it.*/
   // await deployFIFSRegistrar()
 };
 
