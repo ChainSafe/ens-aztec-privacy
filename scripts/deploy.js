@@ -21,7 +21,7 @@ async function deployRollupProcessor() {
 
 async function deployCustomResolver() {
   const chainId = await (await ethers.provider.getNetwork()).chainId
-  const resolverNode = namehash.hash("resolver")
+  let resolverNode = namehash.hash("resolver")
   const CustomResolver = await ethers.getContractFactory("CustomResolver")
 
   if (chainId === 31337) { //localhost
@@ -43,7 +43,8 @@ async function deployCustomResolver() {
     
   } else if (chainId === 5) { //goerli
     const ens = await ethers.getContractAt("ENSRegistry", process.env.ENS_ADDR)
-
+    // change this to whatever name you already have on goerli
+    resolverNode = namehash.hash("jagrooot.eth")
     const resolver = await CustomResolver.deploy(process.env.ENS_ADDR, process.env.GOERLI_ROLLUPPROCESSOR_ADDR, ZERO_ADDRESS)
     const tx = await resolver.deployed()
     await tx.deployTransaction.wait()
