@@ -1,35 +1,24 @@
 require("dotenv").config();
 const hre = require("hardhat");
+const ethers = hre.ethers;
 const namehash = require("eth-ens-namehash");
 
-const ethers = hre.ethers;
-
 async function main () {
-  const hashOfName = namehash.hash(process.env.ENS_NAME_FOR_PRIVATE_KEY);
-  const wallet = await new ethers.Wallet(process.env.PRIVATE_KEY, await ethers.provider)
-  // await enablePrivateTx(hashOfName, wallet.address)
-  // console.log('enable private done')
-  await sendPrivate(hashOfName, await ethers.utils.parseEther("0.001"))
+  const node = namehash.hash(process.env.ENS_NAME_FOR_PRIVATE_KEY);
+  await enablePrivateTx(node)
+  await sendPrivate(node, ethers.utils.parseEther("0.001"))
   console.log('Sent!')
 }
 
-async function testMethod(hashOfName) {
+async function enablePrivateTx(node) {
   const CustomResolver = await ethers.getContractAt("CustomResolver", process.env.GOERLI_CUSTOMRESOLVER_ADDR)
-  const addr = await CustomResolver['addr(bytes32)'](hashOfName)
-  console.log(addr)
+  const setSendPrivate = await CustomResolver.setSendPrivate(node, true)
+  await setSendPrivate.wait()
 }
 
-async function enablePrivateTx(hashOfName, account) {
+async function sendPrivate(node, amount) {
   const CustomResolver = await ethers.getContractAt("CustomResolver", process.env.GOERLI_CUSTOMRESOLVER_ADDR)
-  const setAddr = await CustomResolver['setAddr(bytes32,address)'](hashOfName, account)
-  await setAddr.wait()
-  // const setSendPrivate = await CustomResolver.setSendPrivate(hashOfName, true)
-  // await setSendPrivate.wait()
-}
-
-async function sendPrivate(hashOfName, amount) {
-  const CustomResolver = await ethers.getContractAt("CustomResolver", process.env.GOERLI_CUSTOMRESOLVER_ADDR)
-  const tx = await CustomResolver['sendPrivate(bytes32)'](hashOfName, {
+  const tx = await CustomResolver.sendPrivate(node, {
     value: amount
   })
   await tx.wait()

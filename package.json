@@ -32,7 +32,6 @@
     "deploy:local": "yarn hardhat run --network localhost scripts/deploy.js",
     "deploy:goerli": "yarn hardhat run --network goerli scripts/deploy.js",
     "deploy:mainnet_fork": "yarn hardhat run --network mainnet_fork scripts/deploy.js",
-    "dryRun:local": "yarn hardhat run --network localhost scripts/dryRun.js",
     "dryRun:goerli": "yarn hardhat run --network goerli scripts/dryRun.js",
     "dryRun:mainnet_fork": "yarn hardhat run --network mainnet_fork scripts/dryRun.js"
   }
