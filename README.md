@@ -1,6 +1,6 @@
 # Using Aztec for ENS Privacy
 
-For more details on the scope and description of this proof-of-concept, please refer to the specification [here](https://hackmd.io/@cilOhZOYSdepMrS71Goxqg/BkedGj7Cq).
+For more details on the scope and description of this proof-of-concept, please refer to the [specification](https://solutions.chainsafe.io/Publications/Using-Aztec-for-ENS-Privacy).
 
 ## Contracts Setup
 
