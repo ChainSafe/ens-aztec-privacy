@@ -2,6 +2,10 @@
 
 For more details on the scope and description of this proof-of-concept, please refer to the [specification](https://solutions.chainsafe.io/Publications/Using-Aztec-for-ENS-Privacy).
 
+## Introduction
+
+This project has been based on the previous [ENS privacy research output](https://hackmd.io/@cilOhZOYSdepMrS71Goxqg/Hy_8aOKsc) where a look into possible options has been taken. The goal was to enable users to publish their ENS name, allow people to send crypto to it, without revealing the main address.
+
 ## Contracts Setup
 
 The contracts are pulled from the [ens-contracts](https://github.com/ensdomains/ens-contracts) and [aztec-connect/blockchain](https://github.com/AztecProtocol/aztec-connect/tree/master/blockchain) repos. 
