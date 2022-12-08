@@ -1,7 +1,9 @@
+⚠️ ❌ ❗️❗️DO NOT USE THE DEPLOYED CONTRACTS❗️❗️❌ ⚠️
+
+⚠️ ❌ ❗️❗️NOT PRODUCTION READY❗️❗️❌ ⚠️
 # Using Aztec for ENS Privacy
 
 For more details on the scope and description of this proof-of-concept, please refer to the specification [here](https://hackmd.io/@cilOhZOYSdepMrS71Goxqg/BkedGj7Cq).
-
 ## Contracts Setup
 
 The contracts are pulled from the [ens-contracts](https://github.com/ensdomains/ens-contracts) and [aztec-connect/blockchain](https://github.com/AztecProtocol/aztec-connect/tree/master/blockchain) repos. 
@@ -22,7 +24,16 @@ For ENS contracts, they are inherently available in `ethers.js` library, which w
 - ResolverBase.sol
 - CustomResolver.sol <- Main contract for our purpose
 ```
-The `CustomResolver` currently only supports Address Resolver, but easily extendable to how the default `PublicResolver` supports other interfaces. 
+The `CustomResolver` currently only supports Address Resolver, but easily extendable to how the default `PublicResolver` supports other interfaces.
+
+### Contract Deployments
+
+- Mainnet: 
+    - CustomResolver: [0x5D597018a815bf3F8aFC8C457d154467cCe25909](https://etherscan.io/address/0x5D597018a815bf3F8aFC8C457d154467cCe25909#code)
+    - RollupProcessor: [0xff1f2b4adb9df6fc8eafecdcbf96a2b351680455](https://etherscan.io/address/0xff1f2b4adb9df6fc8eafecdcbf96a2b351680455)
+- Goerli:
+    - CustomResolver: [0x782b3B841Ce2cA661E6438b42e4ae40F0FAd06c1](https://goerli.etherscan.io/address/0x782b3B841Ce2cA661E6438b42e4ae40F0FAd06c1)
+    - RollupProcessor: [0x6Bc2999FB28c8beC3163334E8B7F147CCc21173A](https://goerli.etherscan.io/address/0x6Bc2999FB28c8beC3163334E8B7F147CCc21173A)
 
 ## Project Setup
 
