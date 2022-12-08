@@ -45,21 +45,26 @@ async function deployCustomResolver() {
   } else if (chainId === 5) { //goerli
     const ens = await ethers.getContractAt("ENSRegistry", process.env.ENS_ADDR)
     // change this to whatever name you already have on goerli
-    resolverNode = namehash.hash("jagrooot.eth")
+    resolverNode = namehash.hash("jagrut.eth")
     const resolver = await CustomResolver.deploy(process.env.ENS_ADDR, process.env.GOERLI_ROLLUPPROCESSOR_ADDR, ZERO_ADDRESS)
     const tx = await resolver.deployed()
     await tx.deployTransaction.wait()
-    
     await setupResolver(ens, resolver, resolverNode, chainId)
     
-  } else if (chainId === 677868) { //mainnet-fork
-    ens = await ethers.getContractAt("ENSRegistry", process.env.ENS_ADDR)
+  } else if (chainId === 1) { //mainnet
+    // change this to whatever name you already have on goerli
+    resolverNode = namehash.hash("jagrut.eth")
+    const resolver = await CustomResolver.deploy(process.env.ENS_ADDR, process.env.MAINNET_ROLLUPPROCESSOR_ADDR, ZERO_ADDRESS)
+    const tx = await resolver.deployed()
+    await tx.deployTransaction.wait()
+    
+    const setAddr = await resolver['setAddr(bytes32,address)'](resolverNode, await (await ethers.getSigner()).address)
+    await setAddr.wait()
 
-    resolver = await CustomResolver.deploy(
-      process.env.ENS_ADDR,
-      process.env.MAINNET_FORK_ROLLUPPROCESSOR_ADDR,
-      ZERO_ADDRESS
-    )
+  }else if (chainId === 677868) { //mainnet-fork
+    const ens = await ethers.getContractAt("ENSRegistry", process.env.ENS_ADDR)
+
+    const resolver = await CustomResolver.deploy(process.env.ENS_ADDR, process.env.MAINNET_FORK_ROLLUPPROCESSOR_ADDR, ZERO_ADDRESS)
     const tx = await resolver.deployed()
     await tx.deployTransaction.wait()
     
@@ -68,7 +73,7 @@ async function deployCustomResolver() {
 }
 
 async function setupResolver(ens, resolver, resolverNode, chainId) {
-  const resolverLabel = labelhash("resolver");
+  const resolverLabel = labelhash("iam");
   const setSubnodeOwner = await ens.setSubnodeOwner(
     chainId === 31337 ? ZERO_HASH : resolverNode,
     resolverLabel,
