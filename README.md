@@ -3,7 +3,7 @@
 ⚠️ ❌ ❗️❗️NOT PRODUCTION READY❗️❗️❌ ⚠️
 # Using Aztec for ENS Privacy
 
-For more details on the scope and description of this proof-of-concept, please refer to the specification [here](https://hackmd.io/@cilOhZOYSdepMrS71Goxqg/BkedGj7Cq).
+For more details on the scope and description of this proof-of-concept, please refer to the specification [here](https://hackmd.io/@cilOhZOYSdepMrS71Goxqg/BkedGj7Cq). For user manual, see [here](https://hackmd.io/@cilOhZOYSdepMrS71Goxqg/HyamDGkOo).
 ## Contracts Setup
 
 The contracts are pulled from the [ens-contracts](https://github.com/ensdomains/ens-contracts) and [aztec-connect/blockchain](https://github.com/AztecProtocol/aztec-connect/tree/master/blockchain) repos. 
