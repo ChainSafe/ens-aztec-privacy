@@ -39,6 +39,9 @@ The `CustomResolver` currently only supports Address Resolver, but easily extend
     - CustomResolver: [0x782b3B841Ce2cA661E6438b42e4ae40F0FAd06c1](https://goerli.etherscan.io/address/0x782b3B841Ce2cA661E6438b42e4ae40F0FAd06c1)
     - RollupProcessor: [0x6Bc2999FB28c8beC3163334E8B7F147CCc21173A](https://goerli.etherscan.io/address/0x6Bc2999FB28c8beC3163334E8B7F147CCc21173A)
 
+### Transfer UI
+After a user has successfully set up their ENS address to receive Aztec Deposits via ENS they can deposit from another account using [https://aztec-ens.ktlxv.com/](https://aztec-ens.ktlxv.com/) ([source code](https://github.com/Ktl-XV/aztec-ens-ui)
+
 ## Project Setup
 
 #### Requirements:
